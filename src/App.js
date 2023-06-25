@@ -1,13 +1,13 @@
 import "./App.css";
-import React, { useState, useReducer } from "react";
-
+import React, { useState, useReducer, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [counter, setCounter] = useState(1);
   const [inputValue, setInputValue] = useState("harun");
 
   const reducer = (state, action) => {
-    switch(action.type){
+    switch(action.type) {
       case "INCREASE":
           return {count: state.count+1, showText: state.showText};
           case "toggleShowText":
@@ -17,9 +17,9 @@ function App() {
     }
   };
 
-  const ReducerTutorial = () =>{
+ 
     const[state, dispatch] = useReducer(reducer,{count:0,showText:true}); 
-  }
+
  
   const increment = () => {
     setCounter(counter + 1);
@@ -30,6 +30,18 @@ function App() {
   setInputValue(newValue);
 
  };
+
+ const [data, setData] = useState("");
+ const [count, setCount] = useState(0);
+ useEffect(() => {
+  axios
+    .get("https://jsonplaceholder.typicode.com/comments")
+    .then((response) => {
+      setData(response.data[0].email);
+      console.log("API WAS CALLED");
+    });
+}, []);
+ 
   return (
     <div className="App">
       <div>
@@ -54,13 +66,29 @@ function App() {
   dispatch({type:"INCREASE"});
   dispatch({type:"toggleShowText"});
 }}>
-{state.showText&&<p>This is a text</p>}
+click here
 </button>
+{state.showText&&<p>This is a text</p>}
+<h1>{state.count}</h1>
   <p>_____________________</p>
 </div>
+
+<p>example 4:useEffect</p>
+<div>
+      Hello World
+      <h1>{data}</h1>
+      <h1>{count}</h1>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Click
+      </button>
+    </div>
+
 
     </div>
   );
 };
-
 export default App;
