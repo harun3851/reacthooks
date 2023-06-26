@@ -22,7 +22,11 @@
 
 
 }
+.flex-container {
+  display: flex;
+  justify-content: space-around;
 
+}
 .App-link {
   color: #61dafb;
 }
