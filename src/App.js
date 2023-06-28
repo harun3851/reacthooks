@@ -45,7 +45,15 @@ function App() {
   const onClick=()=> {
     inputRef.current.value="";
   };
+//useEffect
 
+  const [time , setTime] = useState(new Date());
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setTime(new Date())
+    } ,1000)
+  },[time, setTime])
 
 
   return (
@@ -101,7 +109,13 @@ function App() {
           <p>_____________________</p>
         </div>
         <div>
-          <p>example 5:useRefhook</p>
+          <p>example 5:useEffect</p>
+          <h1>use Effect example:{time.toLocaleTimeString()}</h1>
+      
+          <p>_____________________</p>
+        </div>
+        <div>
+          <p>example 6:useRefhook</p>
           <h1>harun</h1>
           <input type="text" placeholder="ex..." ref={inputRef}/>
           <button onClick={onClick}>change name</button>
